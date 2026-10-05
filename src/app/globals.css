@@ -1,26 +1,140 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-jakarta);
+
+  --color-navy: #061a5c;
+  --color-royal: #0a34c2;
+  --color-azure: #1a5cff;
+  --color-sky: #5aa2ff;
+  --color-ice: #9fd8ff;
+  --color-mist: #eef6ff;
+  --color-ink: #0b1a3a;
+
+  --animate-float: float 9s ease-in-out infinite;
+  --animate-drift: drift 60s linear infinite;
+  --animate-fade-in: fade-in 1.2s ease-out both;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Scrolling is smoothed by Lenis (see Animations.tsx), not CSS. */
+html {
+  scroll-padding-top: 4.5rem;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: #ffffff;
+  color: var(--color-ink);
+  font-family: var(--font-jakarta), system-ui, sans-serif;
+}
+
+::selection {
+  background: var(--color-azure);
+  color: #fff;
+}
+
+/* Start hidden so nothing flashes before GSAP animates it in (autoAlpha
+   switches visibility back on). */
+.hero-anim,
+[data-reveal],
+[data-stagger] > * {
+  visibility: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-anim,
+  [data-reveal],
+  [data-stagger] > * {
+    visibility: visible;
+  }
+}
+
+/* Frosted glass surface used for the floating cards over the hero. */
+.glass {
+  background: linear-gradient(
+    135deg,
+    rgb(255 255 255 / 0.28),
+    rgb(255 255 255 / 0.08)
+  );
+  border: 1px solid rgb(255 255 255 / 0.35);
+  box-shadow:
+    0 20px 50px -20px rgb(6 26 92 / 0.55),
+    inset 0 1px 0 rgb(255 255 255 / 0.45);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+}
+
+/* 3D tilt cards (driven by data-tilt in Animations.tsx): the card rotates
+   toward the pointer and its content floats above the face. */
+.tilt-card {
+  transform-style: preserve-3d;
+}
+
+.tilt-layer {
+  transform: translateZ(34px);
+  transform-style: preserve-3d;
+}
+
+.tilt-pop {
+  transform: translateZ(30px);
+}
+
+/* Highlight that follows the pointer across the card face. */
+.tilt-glare {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s;
+  background: radial-gradient(
+    circle at var(--gx, 50%) var(--gy, 50%),
+    rgb(255 255 255 / 0.4),
+    transparent 55%
+  );
+}
+
+.tilt-glare-blue {
+  background: radial-gradient(
+    circle at var(--gx, 50%) var(--gy, 50%),
+    rgb(90 162 255 / 0.28),
+    transparent 60%
+  );
+}
+
+.tilt-card:hover .tilt-glare {
+  opacity: 1;
+}
+
+/* Soap bubble: transparent body, bright rim and a highlight. */
+.bubble {
+  border-radius: 9999px;
+  background:
+    radial-gradient(circle at 30% 26%, rgb(255 255 255 / 0.95) 0 6%, transparent 14%),
+    radial-gradient(circle at 70% 78%, rgb(255 255 255 / 0.35) 0 8%, transparent 26%),
+    radial-gradient(circle at 50% 50%, transparent 52%, rgb(190 228 255 / 0.55) 78%, rgb(255 255 255 / 0.85) 100%);
+  box-shadow:
+    inset 0 0 18px rgb(255 255 255 / 0.35),
+    0 10px 30px -12px rgb(6 26 92 / 0.5);
+}
+
+@keyframes float {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  33% { transform: translate3d(10px, -22px, 0) rotate(3deg); }
+  66% { transform: translate3d(-8px, -10px, 0) rotate(-2deg); }
+}
+
+@keyframes drift {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+  }
 }

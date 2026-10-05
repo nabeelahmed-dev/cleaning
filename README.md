@@ -1,36 +1,36 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Top Notch Reliable Cleaning LLC
 
-## Getting Started
+Animated marketing site for a commercial and office cleaning company in Columbus.
 
-First, run the development server:
+Live: https://clearsky-cleaning.vercel.app
+
+## What's inside
+
+- Pinned 3D hero: a cleaning kit modelled in code (bucket, squeegee, spray bottle, cloths, sponge) that rotates, then unpacks into labelled parts as you scroll
+- 3D tilt cards for services, reasons and process steps
+- Bubbles that drift toward the cursor in the "Why choose us" and quote sections
+- 3D review ring that auto-rotates, drags to spin and steps with arrows
+- Smooth scrolling and scroll-triggered reveals
+
+## Stack
+
+Next.js 16 (App Router) · React 19 · React Three Fiber + drei · three.js · GSAP + ScrollTrigger · Lenis · Tailwind CSS 4 · TypeScript
+
+## Run it
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Content
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+All copy lives in `src/lib/site.ts`. The business name, phone, email, service area and the six services come from the client's flyer. The stats, opening hours, service claims and reviews are placeholders and need confirming with the client before launch.
 
-## Learn More
+## Notes
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- The site is set to `noindex` in `src/app/layout.tsx` until the placeholder content is replaced.
+- The quote form has no backend: it opens the visitor's email app with the request filled in.
+- Respects `prefers-reduced-motion`.
