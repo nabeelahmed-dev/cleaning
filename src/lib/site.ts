@@ -49,68 +49,94 @@ export const kit = [
 ];
 
 // The six services are the ones listed on the flyer; the descriptions and
-// bullet points are draft wording.
-// Options for the online booking form (/booking). No prices: the business
-// confirms the price by quote. The size bands and extras are draft options.
+// bullet points are draft wording. `tier` picks the booking price tier.
+// Options and prices for the online booking form (/booking).
+//
+// The price model is copied from the reference booking form the client's
+// site is modelled on (a New York residential cleaner), read on 2026-10-07.
+// It is NOT Top Notch's own price list: confirm every figure with the client.
+// Sales tax, tips, coupons and card payment from the reference are left out.
 export const booking = {
-  frequencies: ["One-Time", "Every Week", "Every 2 Weeks", "Every 4 Weeks"],
-  commercialSize: [
-    { label: "Floor area", options: ["Under 1,000 sq ft", "1,000 – 2,499 sq ft", "2,500 – 4,999 sq ft", "5,000 – 9,999 sq ft", "10,000+ sq ft"] },
-    { label: "Rooms / offices", options: ["1 – 2", "3 – 5", "6 – 10", "More than 10"] },
-    { label: "Restrooms", options: ["1", "2", "3", "4 or more"] },
+  // discount applies to the repeat visits; the first visit is full price.
+  frequencies: [
+    { label: "One-Time", discount: 0 },
+    { label: "Every Week", discount: 0.2 },
+    { label: "Every 2 Weeks", discount: 0.1 },
+    { label: "Every 4 Weeks", discount: 0.05 },
   ],
-  apartmentSize: [
-    { label: "Bedrooms", options: ["Studio", "1 Bedroom", "2 Bedrooms", "3 Bedrooms", "4+ Bedrooms"] },
-    { label: "Bathrooms", options: ["1 Bathroom", "2 Bathrooms", "3+ Bathrooms"] },
-    { label: "Floor area", options: ["Under 1,000 sq ft", "1,000 – 1,499 sq ft", "1,500 – 1,999 sq ft", "2,000+ sq ft"] },
-  ],
+  // base = smallest space (1 room, 1 bathroom, under 1,000 sq ft);
+  // perRoom is added for each room after the first.
+  tiers: {
+    standard: { base: 150, perRoom: 25 },
+    deep: { base: 225, perRoom: 50 },
+    move: { base: 300, perRoom: 75 },
+  },
+  perBathroom: 25, // each bathroom after the first
+  perHalfBath: 12.5,
+  perAreaBand: 25, // each floor-area band above the smallest
+  rooms: ["1", "2", "3"],
+  bathrooms: ["1", "2", "3"],
+  halfBaths: ["0", "1", "2", "3"],
+  areas: ["1 – 999 sq ft", "1,000 – 1,499 sq ft", "1,500 – 1,999 sq ft", "2,000 – 2,499 sq ft", "2,500 – 2,999 sq ft"],
+  // price is per booking, or per unit when `unit` is set. A price list is
+  // indexed by number of rooms (1, 2, 3). firstVisitOnly extras are not
+  // charged again on repeat visits.
   extras: [
-    "Restrooms",
-    "Floor care",
-    "Trash removal",
-    "Interior windows",
-    "Inside fridge",
-    "Inside oven",
-    "Break room",
-    "Carpets",
+    { name: "Initial / Heavy Duty Clean", price: [75, 100, 125], firstVisitOnly: true },
+    { name: "Additional Room", price: 25 },
+    { name: "Interior Windows", price: 2.5, unit: "window" },
+    { name: "Inside Fridge", price: 37.5 },
+    { name: "Inside Oven", price: 37.5 },
+    { name: "Hourly Organization", price: 50 },
+    { name: "Sink Of Dishes", price: 25 },
+    { name: "Dog(s)", price: 20 },
+    { name: "Cat(s)", price: 20 },
   ],
   arrivalWindows: ["Morning (8am – 11am)", "Midday (11am – 2pm)", "Afternoon (2pm – 5pm)", "After hours (5pm onwards)"],
 } as const;
+
+export type PricingTier = keyof typeof booking.tiers;
 
 export const services = [
   {
     icon: "building",
     title: "Office Cleaning",
+    tier: "standard",
     text: "Regular cleaning that keeps your workplace ready for staff and visitors.",
     points: ["Desks & workstations", "Meeting rooms", "Break rooms & kitchens"],
   },
   {
     icon: "store",
     title: "Commercial Spaces",
+    tier: "standard",
     text: "Cleaning for commercial premises, planned around how your space is used.",
     points: ["Lobbies & entrances", "Shared areas", "Glass & surfaces"],
   },
   {
     icon: "house",
     title: "Apartment Move-In / Move-Out Cleaning",
+    tier: "move",
     text: "Hand over the keys with confidence, or start fresh in a spotless new place.",
     points: ["Kitchens & appliances", "Bathrooms", "Floors & cupboards"],
   },
   {
     icon: "sparkles",
     title: "Deep Cleaning",
+    tier: "deep",
     text: "A top-to-bottom reset for the corners a regular clean never reaches.",
     points: ["Built-up dirt & grime", "Hard-to-reach areas", "Detailed finish"],
   },
   {
     icon: "trash",
     title: "Restrooms, Floors & Trash Removal",
+    tier: "standard",
     text: "The essentials every building needs handled, every visit.",
     points: ["Restroom cleaning", "Floor care", "Trash removal"],
   },
   {
     icon: "calendar",
     title: "One-Time & Recurring Cleaning",
+    tier: "standard",
     text: "Book a single clean, or set up a regular schedule that suits you.",
     points: ["One-time cleans", "Recurring schedules", "Free quotes"],
   },
