@@ -30,6 +30,7 @@ export const hero = {
   lines: ["A Cleaner", "Space for a", "Brighter You"],
   text: "Professional cleaning services for homes and businesses. Reliable. Detail-oriented. Always on time.",
   cta: "Get a Free Quote",
+  bookCta: "Book Online",
 };
 
 export const heroFeatures = [
@@ -49,6 +50,33 @@ export const kit = [
 
 // The six services are the ones listed on the flyer; the descriptions and
 // bullet points are draft wording.
+// Options for the online booking form (/booking). No prices: the business
+// confirms the price by quote. The size bands and extras are draft options.
+export const booking = {
+  frequencies: ["One-Time", "Every Week", "Every 2 Weeks", "Every 4 Weeks"],
+  commercialSize: [
+    { label: "Floor area", options: ["Under 1,000 sq ft", "1,000 – 2,499 sq ft", "2,500 – 4,999 sq ft", "5,000 – 9,999 sq ft", "10,000+ sq ft"] },
+    { label: "Rooms / offices", options: ["1 – 2", "3 – 5", "6 – 10", "More than 10"] },
+    { label: "Restrooms", options: ["1", "2", "3", "4 or more"] },
+  ],
+  apartmentSize: [
+    { label: "Bedrooms", options: ["Studio", "1 Bedroom", "2 Bedrooms", "3 Bedrooms", "4+ Bedrooms"] },
+    { label: "Bathrooms", options: ["1 Bathroom", "2 Bathrooms", "3+ Bathrooms"] },
+    { label: "Floor area", options: ["Under 1,000 sq ft", "1,000 – 1,499 sq ft", "1,500 – 1,999 sq ft", "2,000+ sq ft"] },
+  ],
+  extras: [
+    "Restrooms",
+    "Floor care",
+    "Trash removal",
+    "Interior windows",
+    "Inside fridge",
+    "Inside oven",
+    "Break room",
+    "Carpets",
+  ],
+  arrivalWindows: ["Morning (8am – 11am)", "Midday (11am – 2pm)", "Afternoon (2pm – 5pm)", "After hours (5pm onwards)"],
+} as const;
+
 export const services = [
   {
     icon: "building",

@@ -1,7 +1,10 @@
+import Link from "next/link";
 import { nav, services, site } from "@/lib/site";
 import { Logo } from "./icons";
 
-export function Footer() {
+// `base` is "" on the home page and "/" on other pages (see Nav).
+export function Footer({ base = "" }: { base?: string }) {
+  const SectionLink = base ? Link : "a";
   return (
     <footer className="bg-navy text-white">
       <div className="mx-auto grid max-w-7xl gap-12 px-5 py-16 sm:px-8 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
@@ -18,11 +21,16 @@ export function Footer() {
           <ul className="mt-4 space-y-3 text-sm text-white/65">
             {nav.map((item) => (
               <li key={item.href}>
-                <a href={item.href} className="transition-colors hover:text-white">
+                <SectionLink href={`${base}${item.href}`} className="transition-colors hover:text-white">
                   {item.label}
-                </a>
+                </SectionLink>
               </li>
             ))}
+            <li>
+              <Link href="/booking" className="transition-colors hover:text-white">
+                Book Online
+              </Link>
+            </li>
           </ul>
         </div>
 
@@ -31,9 +39,9 @@ export function Footer() {
           <ul className="mt-4 space-y-3 text-sm text-white/65">
             {services.slice(0, 5).map((service) => (
               <li key={service.title}>
-                <a href="#services" className="transition-colors hover:text-white">
+                <SectionLink href={`${base}#services`} className="transition-colors hover:text-white">
                   {service.title}
-                </a>
+                </SectionLink>
               </li>
             ))}
           </ul>

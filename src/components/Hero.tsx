@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import dynamic from "next/dynamic";
+import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { gsap, useGSAP } from "@/lib/gsap";
 import { hero, heroFeatures, kit } from "@/lib/site";
@@ -128,7 +129,7 @@ export function Hero() {
               {hero.text}
             </p>
 
-            <div className="hero-copy hero-anim mt-8">
+            <div className="hero-copy hero-anim mt-8 flex flex-wrap items-center gap-3">
               <a
                 href="#contact"
                 className="group inline-flex items-center gap-4 rounded-full bg-white py-4 pl-7 pr-6 text-sm font-semibold text-royal shadow-[0_18px_40px_-16px_rgb(6_26_92/0.8)] transition-[box-shadow,transform] duration-300 hover:shadow-[0_24px_50px_-14px_rgb(6_26_92/0.9)] active:scale-[0.97]"
@@ -136,6 +137,12 @@ export function Hero() {
                 {hero.cta}
                 <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1.5" />
               </a>
+              <Link
+                href="/booking"
+                className="inline-flex items-center rounded-full border border-white/50 px-7 py-4 text-sm font-semibold text-white transition-colors duration-300 hover:bg-white hover:text-royal"
+              >
+                {hero.bookCta}
+              </Link>
             </div>
 
             <ul className="mt-10 hidden max-w-xl grid-cols-4 gap-6 md:grid">

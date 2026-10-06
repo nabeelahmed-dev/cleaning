@@ -1,12 +1,17 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { gsap, useGSAP } from "@/lib/gsap";
 import { Menu, Phone, X } from "lucide-react";
 import { nav, site } from "@/lib/site";
 import { Logo } from "./icons";
 
-export function Nav() {
+// `base` is "" on the home page (in-page links) and "/" on other pages, where
+// the section links have to lead back to the home page first.
+export function Nav({ base = "" }: { base?: string }) {
+  // Plain anchors on the home page so the smooth-scroll handler can take them.
+  const SectionLink = base ? Link : "a";
   const ref = useRef<HTMLElement>(null);
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
@@ -54,36 +59,42 @@ export function Nav() {
       }`}
     >
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 sm:px-8">
-        <a href="#home" aria-label={`${site.name} home`}>
+        <SectionLink href={`${base}#home`} aria-label={`${site.name} home`}>
           <Logo />
-        </a>
+        </SectionLink>
 
         <nav className="hidden items-center gap-9 md:flex" aria-label="Main">
           {nav.map((item) => (
-            <a
+            <SectionLink
               key={item.href}
-              href={item.href}
-              aria-current={active === item.href ? "true" : undefined}
+              href={`${base}${item.href}`}
+              aria-current={!base && active === item.href ? "true" : undefined}
               className="group relative py-2 text-sm font-medium text-white/85 transition-colors hover:text-white"
             >
               {item.label}
               <span
                 className={`absolute inset-x-0 -bottom-0.5 h-0.5 origin-left rounded-full bg-white transition-transform duration-300 group-hover:scale-x-100 ${
-                  active === item.href ? "scale-x-100" : "scale-x-0"
+                  !base && active === item.href ? "scale-x-100" : "scale-x-0"
                 }`}
               />
-            </a>
+            </SectionLink>
           ))}
         </nav>
 
         <div className="flex items-center gap-3">
           <a
             href={site.phoneHref}
-            className="hidden items-center gap-2 rounded-full border border-white/40 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-white hover:text-royal sm:flex"
+            className="hidden items-center gap-2 rounded-full border border-white/40 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-white hover:text-royal lg:flex"
           >
             <Phone className="h-4 w-4" />
             {site.phone}
           </a>
+          <Link
+            href="/booking"
+            className="hidden rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-royal transition-transform duration-300 hover:scale-[1.04] sm:block"
+          >
+            Book Now
+          </Link>
           <button
             type="button"
             onClick={() => setOpen((value) => !value)}
@@ -106,18 +117,25 @@ export function Nav() {
         <div className="overflow-hidden">
           <div className="flex flex-col gap-1 px-5 pb-6">
             {nav.map((item) => (
-              <a
+              <SectionLink
                 key={item.href}
-                href={item.href}
+                href={`${base}${item.href}`}
                 onClick={() => setOpen(false)}
                 className="rounded-xl px-3 py-3 text-base font-medium text-white/90 hover:bg-white/10"
               >
                 {item.label}
-              </a>
+              </SectionLink>
             ))}
+            <Link
+              href="/booking"
+              onClick={() => setOpen(false)}
+              className="mt-2 flex items-center justify-center rounded-full bg-white px-5 py-3 text-sm font-semibold text-royal"
+            >
+              Book Now
+            </Link>
             <a
               href={site.phoneHref}
-              className="mt-2 flex items-center justify-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-semibold text-royal"
+              className="mt-2 flex items-center justify-center gap-2 rounded-full border border-white/40 px-5 py-3 text-sm font-semibold text-white"
             >
               <Phone className="h-4 w-4" />
               {site.phone}
