@@ -1,18 +1,18 @@
 // All copy lives here so the brand, contact details and content can be
 // changed in one place.
 //
-// From the client's flyer: business name, phone, email, service area and the
-// six services. Everything else (stats, hours, claims, reviews) is placeholder
-// content carried over from the design and is UNCONFIRMED with the client.
+// This is a demo for an unnamed cleaning company: the name, contact details,
+// stats, hours, claims, reviews and prices are all placeholders. Replace them
+// with the real business's details before using the site.
 
 export const site = {
-  name: "Top Notch",
-  tagline: "Reliable Cleaning LLC",
-  legalName: "Top Notch Reliable Cleaning LLC",
-  phone: "380-241-9558",
-  phoneHref: "tel:+13802419558",
-  email: "tnreliablecleaning@gmail.com",
-  area: "Columbus & Surrounding Areas",
+  name: "Your Company",
+  tagline: "Cleaning Services",
+  legalName: "Your Company Cleaning Services",
+  phone: "(555) 555-0123",
+  phoneHref: "tel:+15555550123",
+  email: "hello@example.com",
+  area: "Your City & Surrounding Areas",
   hours: "Mon – Sat, 7am – 7pm",
 };
 
@@ -48,14 +48,11 @@ export const kit = [
   { name: "Sponge & pads", text: "The right abrasive for each surface, never scratchy" },
 ];
 
-// The six services are the ones listed on the flyer; the descriptions and
-// bullet points are draft wording. `tier` picks the booking price tier.
 // Options and prices for the online booking form (/booking).
 //
-// The price model is copied from the reference booking form the client's
-// site is modelled on (a New York residential cleaner), read on 2026-10-07.
-// It is NOT Top Notch's own price list: confirm every figure with the client.
-// Sales tax, tips, coupons and card payment from the reference are left out.
+// The price model follows a reference residential-cleaning booking form, read
+// on 2026-10-07. The figures are placeholders: replace them with the real
+// business's price list. Sales tax, tips, coupons and card payment are left out.
 export const booking = {
   // discount applies to the repeat visits; the first visit is full price.
   frequencies: [
@@ -97,6 +94,7 @@ export const booking = {
 
 export type PricingTier = keyof typeof booking.tiers;
 
+// `tier` picks the booking price tier for each service.
 export const services = [
   {
     icon: "building",
