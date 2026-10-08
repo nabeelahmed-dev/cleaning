@@ -9,7 +9,6 @@ export const site = {
   name: "Your Company",
   tagline: "Cleaning Services",
   legalName: "Your Company Cleaning Services",
-  url: "https://cleaning-ten-rho.vercel.app",
   phone: "(555) 555-0123",
   phoneHref: "tel:+15555550123",
   email: "hello@example.com",

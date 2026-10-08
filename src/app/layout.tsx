@@ -8,13 +8,18 @@ const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
 });
 
+// Client demo: no SEO metadata (description, canonical, social tags), and
+// search engines are told to stay out. Crawling is also blocked in robots.ts
+// and by the X-Robots-Tag header in next.config.ts.
 export const metadata: Metadata = {
-  metadataBase: new URL(site.url),
   title: `${site.legalName} | A Cleaner Space for a Brighter You`,
-  description:
-    "Professional office and commercial cleaning. Reliable, detail-oriented and always on time. Get a free quote today.",
-  // Placeholder stats, claims and reviews: keep it out of search results. Remove at launch.
-  robots: { index: false, follow: false },
+  robots: {
+    index: false,
+    follow: false,
+    noarchive: true,
+    nosnippet: true,
+    noimageindex: true,
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

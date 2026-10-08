@@ -8,7 +8,6 @@ import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: `Book a Clean | ${site.legalName}`,
-  description: `Request a cleaning online with ${site.legalName}: choose your service, tell us about your space and pick a date.`,
 };
 
 const stages = [
