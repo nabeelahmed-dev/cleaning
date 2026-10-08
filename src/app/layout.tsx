@@ -9,6 +9,7 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(site.url),
   title: `${site.legalName} | A Cleaner Space for a Brighter You`,
   description:
     "Professional office and commercial cleaning. Reliable, detail-oriented and always on time. Get a free quote today.",

@@ -3,6 +3,8 @@
 Animated marketing and booking site for a cleaning company. This is a demo: the
 company is shown as "Your Company" and all details are placeholders.
 
+Live demo: https://cleaning-ten-rho.vercel.app/
+
 ## What's inside
 
 - Pinned 3D hero: a cleaning kit modelled in code (bucket, squeegee, spray bottle, cloths, sponge) that rotates, then unpacks into labelled parts as you scroll
